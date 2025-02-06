@@ -1,0 +1,18 @@
+{
+    "name": "ArabicSupportEditor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:1b696738cdd093843bf3c832f2b5a869"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
