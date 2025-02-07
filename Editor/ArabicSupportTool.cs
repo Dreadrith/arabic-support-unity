@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class ArabicSupportTool : EditorWindow
 {
+    private Vector2 scroll;
     private string intToText;
     private char intToTextChar;
     private string textToInt;
@@ -24,7 +25,7 @@ public class ArabicSupportTool : EditorWindow
     
     public void OnGUI()
     {
-        /*
+        scroll = EditorGUILayout.BeginScrollView(scroll);
         using (new GUILayout.HorizontalScope()) 
         {
             EditorGUI.BeginChangeCheck();
@@ -47,7 +48,6 @@ public class ArabicSupportTool : EditorWindow
             EditorGUILayout.IntField(textToIntInt);
         }
         EditorGUILayout.Space();
-        */
         
         GUILayout.Label("Options:", EditorStyles.boldLabel);
         showTashkeel = EditorGUILayout.Toggle("Use Tashkeel", showTashkeel);
@@ -56,6 +56,7 @@ public class ArabicSupportTool : EditorWindow
         EditorGUILayout.Space();
         using (new GUILayout.HorizontalScope())
         {
+            var textStyle = new GUIStyle(GUI.skin.textArea) {wordWrap = true};
             using (new GUILayout.VerticalScope())
             {
                 using (new GUILayout.HorizontalScope(GUILayout.Height(20)))
@@ -63,7 +64,7 @@ public class ArabicSupportTool : EditorWindow
                     GUILayout.Label("Input (Not Fixed)", EditorStyles.boldLabel);
                 }
                 EditorGUI.BeginChangeCheck();
-                rawText = EditorGUILayout.TextArea(rawText, GUILayout.ExpandHeight(true));
+                rawText = EditorGUILayout.TextArea(rawText, textStyle, GUILayout.ExpandHeight(true));
                 if (EditorGUI.EndChangeCheck())
                     fixedText = string.IsNullOrWhiteSpace(rawText) ? string.Empty : ArabicFixer.Fix(rawText, showTashkeel, combineTashkeel, useHinduNumbers);
             }
@@ -79,9 +80,11 @@ public class ArabicSupportTool : EditorWindow
                         Debug.Log(fixedText);
                     }
                 }
-                EditorGUILayout.TextArea(fixedText, GUILayout.ExpandHeight(true));
+                EditorGUILayout.TextArea(fixedText, textStyle, GUILayout.ExpandHeight(true));
             }
         }
+
+        EditorGUILayout.EndScrollView();
     }
 
 }

@@ -73,6 +73,7 @@ namespace ArabicSupport
 			(char)(int)IsolatedArabicLetters.AlefMad,
 			(char)(int)IsolatedArabicLetters.AlefHamza,
 			(char)(int)IsolatedArabicLetters.AlefMaksoor,
+			(char)(int)IsolatedArabicLetters.AlefSukun,
 			(char)(int)IsolatedArabicLetters.Dal,
 			(char)(int)IsolatedArabicLetters.Thal,
 			(char)(int)IsolatedArabicLetters.Ra2,
@@ -92,6 +93,7 @@ namespace ArabicSupport
 		WawHamza = 0x0624,
 		AlefMaksoor = 0x0625,
 		AlefMagsora = 0x0649,
+		AlefSukun = 0x0671,
 		HamzaNabera = 0x0626,
 		Ba = 0x0628,
 		Ta = 0x062A,
@@ -142,6 +144,7 @@ namespace ArabicSupport
 		WawHamza = 0xFE85,
 		AlefMaksoor = 0xFE87,
 		AlefMaksora = 0xFBFC,
+		AlefSukun = 0x0671,
 		HamzaNabera = 0xFE89,
 		Ba = 0xFE8F,
 		Ta = 0xFE95,
@@ -182,10 +185,10 @@ namespace ArabicSupport
 
 	public enum LamCombinations
 	{
-		LamAlefFatha = 0xFEF7,
-		LamAlefKasra = 0xFEF9,
-		LamAlefMad = 0xFEF5,
-		LamAlef = 0xFEFB,
+		LamAlefFatha = 0xFEF5,
+		LamAlefKasra = 0xFEF7,
+		LamAlefMad = 0xFEF3,
+		LamAlef = 0xFEF9,
 	}
 	
 	public enum Tashkeels
