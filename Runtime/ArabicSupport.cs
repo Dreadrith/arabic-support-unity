@@ -271,7 +271,6 @@ namespace ArabicSupport
 				IncrementSB(str.Length);
 				str = internalStringBuilder.ToString();
 			}
-
 			return str;
 		}
 		internal static void ReturnTashkeel(ref char[] letters, List<(char, int)> tashkeelLocation)
@@ -296,7 +295,7 @@ namespace ArabicSupport
 		/// <returns>True if the character should be ignored, false if it should not be ignored.</returns>
 		internal static bool IsIgnoredCharacter(char ch)
 		{
-			if (char.IsPunctuation(ch) || char.IsNumber(ch) || char.IsLower(ch) || char.IsUpper(ch) || char.IsSymbol(ch)) return true;
+			if (ArabicHelper.DoCharCheck(ch, new ArabicHelper.CharCheckConfig() {number = true, symbol = true, punctuation = true, lower = true, upper = true,})) return true;
 			
 			bool isPersianCharacter = ch == (char) 0xFB56 || ch == (char) 0xFB7A || ch == (char) 0xFB8A || ch == (char) 0xFB92 || ch == (char) 0xFB8E;
 			bool isPresentationFormB = (ch <= (char) 0xFEFF && ch >= (char) 0xFE70);
@@ -373,7 +372,7 @@ namespace ArabicSupport
 			{
 				var c = letters[index - 1];
 				lettersThatCannotBeBeforeAFinishingLetter =
-					ArabicHelper.DoCharCheck(c, new ArabicHelper.CharCheckConfig() {disconnectedLetter = true, punctuation = true, symbol = true})
+					!ArabicHelper.DoCharCheck(c, new ArabicHelper.CharCheckConfig() {disconnectedLetter = true, punctuation = true, symbol = true})
 					&& c != ' '
 					&& c != '>'
 					&& c != '<';
@@ -420,7 +419,7 @@ namespace ArabicSupport
 			{
 				c = letters[index + 1];
 				lettersThatCannotBeAfterMiddleCharacters =
-					ArabicHelper.DoCharCheck(c, new ArabicHelper.CharCheckConfig() {punctuation = true, number = true, symbol = true})
+					!ArabicHelper.DoCharCheck(c, new ArabicHelper.CharCheckConfig() {punctuation = true, number = true, symbol = true})
 					&& c != ' '
 					&& c != '\r'
 					&& c != (int) IsolatedArabicLetters.Hamza;

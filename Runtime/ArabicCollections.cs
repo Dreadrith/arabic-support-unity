@@ -64,20 +64,20 @@ namespace ArabicSupport
 			{(char)IsolatedArabicLetters.AlefMad, (char)LamCombinations.LamAlefMad},
 		};
 
-		public static readonly HashSet<int> disconnectedLetters = new HashSet<int>()
+		public static readonly HashSet<char> disconnectedLetters = new HashSet<char>()
 		{
-			(int) IsolatedArabicLetters.Waw,
-			(int) IsolatedArabicLetters.WawHamza,
-			(int) IsolatedArabicLetters.Hamza,
-			(int) IsolatedArabicLetters.Alef,
-			(int) IsolatedArabicLetters.AlefMad,
-			(int) IsolatedArabicLetters.AlefHamza,
-			(int) IsolatedArabicLetters.AlefMaksoor,
-			(int) IsolatedArabicLetters.Dal,
-			(int) IsolatedArabicLetters.Thal,
-			(int) IsolatedArabicLetters.Ra2,
-			(int) IsolatedArabicLetters.Zeen,
-			(int) IsolatedArabicLetters.PersianZe,
+			(char)(int)IsolatedArabicLetters.Waw,
+			(char)(int)IsolatedArabicLetters.WawHamza,
+			(char)(int)IsolatedArabicLetters.Hamza,
+			(char)(int)IsolatedArabicLetters.Alef,
+			(char)(int)IsolatedArabicLetters.AlefMad,
+			(char)(int)IsolatedArabicLetters.AlefHamza,
+			(char)(int)IsolatedArabicLetters.AlefMaksoor,
+			(char)(int)IsolatedArabicLetters.Dal,
+			(char)(int)IsolatedArabicLetters.Thal,
+			(char)(int)IsolatedArabicLetters.Ra2,
+			(char)(int)IsolatedArabicLetters.Zeen,
+			(char)(int)IsolatedArabicLetters.PersianZe,
 		};
 	}
 	
