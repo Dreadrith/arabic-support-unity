@@ -1,50 +1,87 @@
-﻿using ArabicSupport;
+﻿using System;
+using System.ComponentModel;
+using ArabicSupport;
 using UnityEditor;
 using UnityEngine;
 
 public class ArabicSupportTool : EditorWindow
 {
-    string rawText;
-    string fixedText;
+    private string intToText;
+    private char intToTextChar;
+    private string textToInt;
+    private int textToIntInt;
+    private static readonly Int32Converter IntConverter = new Int32Converter();
 
-    bool showTashkeel = true;
-    bool useHinduNumbers = true;
+    public string rawText;
+    public string fixedText;
+    public bool showTashkeel = true;
+    public bool combineTashkeel = true;
+    public bool useHinduNumbers = true;
 
     // Add menu item named "Arabic Support Tool" to the Tools menu
     [MenuItem("Tools/Arabic Support Tool")]
-    public static void ShowWindow()
+    public static void ShowWindow() => GetWindow(typeof(ArabicSupportTool));
+    
+    public void OnGUI()
     {
-        //Show existing window instance. If one doesn't exist, make one.
-        EditorWindow.GetWindow(typeof(ArabicSupportTool));
-    }
-
-    void OnGUI()
-    {
-        if (string.IsNullOrEmpty(rawText))
+        /*
+        using (new GUILayout.HorizontalScope()) 
         {
-            fixedText = "";
-        }
-        else
-        {
-            fixedText = ArabicFixer.Fix(rawText, showTashkeel, useHinduNumbers);
+            EditorGUI.BeginChangeCheck();
+            intToText = EditorGUILayout.TextField(intToText);
+            if (EditorGUI.EndChangeCheck())
+            {
+                try { intToTextChar = (char)(int)IntConverter.ConvertFromString(intToText); }
+                catch { intToTextChar = '0'; }
+            }
+            
+            EditorGUILayout.TextField(intToTextChar.ToString());
         }
 
+        using (new GUILayout.HorizontalScope())
+        {
+            EditorGUI.BeginChangeCheck();
+            textToInt = EditorGUILayout.TextField(textToInt);
+            if (EditorGUI.EndChangeCheck())
+                textToIntInt = textToInt[0];
+            EditorGUILayout.IntField(textToIntInt);
+        }
+        EditorGUILayout.Space();
+        */
+        
         GUILayout.Label("Options:", EditorStyles.boldLabel);
         showTashkeel = EditorGUILayout.Toggle("Use Tashkeel", showTashkeel);
+        combineTashkeel = EditorGUILayout.Toggle("Combine Tashkeel", combineTashkeel);
         useHinduNumbers = EditorGUILayout.Toggle("Use Hindu Numbers", useHinduNumbers);
+        EditorGUILayout.Space();
+        using (new GUILayout.HorizontalScope())
+        {
+            using (new GUILayout.VerticalScope())
+            {
+                using (new GUILayout.HorizontalScope(GUILayout.Height(20)))
+                {
+                    GUILayout.Label("Input (Not Fixed)", EditorStyles.boldLabel);
+                }
+                EditorGUI.BeginChangeCheck();
+                rawText = EditorGUILayout.TextArea(rawText, GUILayout.ExpandHeight(true));
+                if (EditorGUI.EndChangeCheck())
+                    fixedText = string.IsNullOrWhiteSpace(rawText) ? string.Empty : ArabicFixer.Fix(rawText, showTashkeel, combineTashkeel, useHinduNumbers);
+            }
 
-        GUILayout.Label("Input (Not Fixed)", EditorStyles.boldLabel);
-        rawText = EditorGUILayout.TextArea(rawText);
-
-        GUILayout.Label("Output (Fixed)", EditorStyles.boldLabel);
-        fixedText = EditorGUILayout.TextArea(fixedText);
-        if (GUILayout.Button("Copy")) {
-          var tempTextEditor = new TextEditor();
-          tempTextEditor.text = fixedText;
-          tempTextEditor.SelectAll();
-          tempTextEditor.Copy();
+            using (new GUILayout.VerticalScope())
+            {
+                using (new GUILayout.HorizontalScope(GUILayout.Height(20)))
+                {
+                    GUILayout.Label("Output (Fixed)", EditorStyles.boldLabel);
+                    if (GUILayout.Button("Copy", GUILayout.ExpandWidth(false), GUILayout.ExpandHeight(false)))
+                    {
+                        EditorGUIUtility.systemCopyBuffer = fixedText;
+                        Debug.Log(fixedText);
+                    }
+                }
+                EditorGUILayout.TextArea(fixedText, GUILayout.ExpandHeight(true));
+            }
         }
-
     }
 
 }
