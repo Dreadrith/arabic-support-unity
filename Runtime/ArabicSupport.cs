@@ -47,8 +47,8 @@ namespace ArabicSupport
 		// 	return result;
 		// }
 
-		public static string Fix(string str) => Fix(str, true, true, true);
-		public static string Fix(string str, bool showTashkeel, bool useHinduNumbers) => Fix(str, showTashkeel, true, useHinduNumbers);
+		public static string Fix(string str) => Fix(str, true, false, true);
+		public static string Fix(string str, bool showTashkeel, bool useHinduNumbers) => Fix(str, showTashkeel, false, useHinduNumbers);
 		public static string Fix(string str, bool showTashkeel, bool combineTashkeel, bool useHinduNumbers)
 		{
 			if (str.Contains("\n")) str = str.Replace("\n", Environment.NewLine);
@@ -204,7 +204,8 @@ namespace ArabicSupport
 
 			void IncrementSB(int i)
 			{
-				if (i - lastSplitIndex > 0) internalStringBuilder.Append(str, lastSplitIndex, i - lastSplitIndex);
+				if (i - lastSplitIndex > 0)
+					internalStringBuilder.Append(str, lastSplitIndex, i - lastSplitIndex);
 				lastSplitIndex = i + 1;
 			}
 
@@ -282,7 +283,8 @@ namespace ArabicSupport
 				for (int j = letters.Length - 1; j > tl.Item2; j--)
 					letters[j] = letters[j - 1];
 				
-				letters[tl.Item2] = tl.Item1;
+				if (tl.Item2 >= 0 && tl.Item2 < letters.Length) 
+					letters[tl.Item2] = tl.Item1;
 			}
 		}
 		#endregion
